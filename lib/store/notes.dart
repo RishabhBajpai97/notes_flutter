@@ -11,34 +11,54 @@ class Notes extends _Notes with _$Notes {
 
 abstract class _Notes with Store {
   @observable
+  bool isLoading = false;
+  @observable
   ObservableList<NotesModel> _notesList = ObservableList<NotesModel>();
   @computed
   ObservableList<NotesModel> get notesList {
-    DatabaseProvider.db.getNotes().then((foodList) {
-      _notesList = ObservableList.of(foodList);
-    });
     return ObservableList<NotesModel>.of(_notesList);
   }
 
   @action
+  getNotes() {
+    isLoading = true;
+    DatabaseProvider.db.getNotes().then((noteList) {
+      runInAction(() {
+        _notesList = ObservableList.of(noteList);
+        isLoading = false;
+      });
+    });
+  }
+
+  @action
   addNote(NotesModel note) {
-    _notesList.add(note);
+    DatabaseProvider.db.insert(note).then(
+          (storedNote) => runInAction(
+            () {
+              _notesList.insert(0, storedNote);
+            },
+          ),
+        );
   }
 
   @action
   updateNote(NotesModel updatednote) {
-    var founditem = _notesList.firstWhere(
-      (element) => element.id == updatednote.id,
-      orElse: () => null,
-    );
-    if (founditem != null) {
-      founditem = updatednote;
-      print("-----------------------${founditem.content}");
-    }
+    DatabaseProvider.db.update(updatednote).then((_) => runInAction(() {
+          var founditem = _notesList.firstWhere(
+            (element) => element.id == updatednote.id,
+            orElse: () => null,
+          );
+          if (founditem != null) {
+            founditem.content = updatednote.content;
+            founditem.title = updatednote.title;
+          }
+        }));
   }
 
   @action
   deleteNote(int id) {
-    _notesList.removeWhere((element) => element.id == id);
+    DatabaseProvider.db.delete(id).then((_) => runInAction(() {
+          _notesList.removeWhere((element) => element.id == id);
+        }));
   }
 }

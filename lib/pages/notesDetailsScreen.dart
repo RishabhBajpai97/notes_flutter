@@ -84,27 +84,6 @@ class _NotesDetailsScreenState extends State<NotesDetailsScreen> {
                       ),
                     ),
                   ),
-                  // ElevatedButton(
-                  //   onPressed: () {},
-                  //   style: ElevatedButton.styleFrom(
-                  //       padding: EdgeInsets.all(5),
-                  //       primary: Color(0xff3B3B3B),
-                  //       elevation: 0,
-                  //       shape: RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.circular(10))),
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.all(8.0),
-                  //     child: Text(
-                  //       "Save",
-                  //       style: GoogleFonts.openSans(
-                  //         color: Colors.white,
-                  //         fontSize: 16,
-                  //         fontWeight: FontWeight.w700,
-                  //         letterSpacing: 1.5,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -115,7 +94,7 @@ class _NotesDetailsScreenState extends State<NotesDetailsScreen> {
               margin: EdgeInsets.symmetric(horizontal: 30),
               child: Observer(
                 builder: (context) => Column(
-                  mainAxisSize: MainAxisSize.max,
+                  // mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(

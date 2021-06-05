@@ -17,6 +17,21 @@ mixin _$Notes on _Notes, Store {
               name: '_Notes.notesList'))
       .value;
 
+  final _$isLoadingAtom = Atom(name: '_Notes.isLoading');
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   final _$_notesListAtom = Atom(name: '_Notes._notesList');
 
   @override
@@ -33,6 +48,17 @@ mixin _$Notes on _Notes, Store {
   }
 
   final _$_NotesActionController = ActionController(name: '_Notes');
+
+  @override
+  dynamic getNotes() {
+    final _$actionInfo =
+        _$_NotesActionController.startAction(name: '_Notes.getNotes');
+    try {
+      return super.getNotes();
+    } finally {
+      _$_NotesActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic addNote(NotesModel note) {
@@ -70,6 +96,7 @@ mixin _$Notes on _Notes, Store {
   @override
   String toString() {
     return '''
+isLoading: ${isLoading},
 notesList: ${notesList}
     ''';
   }

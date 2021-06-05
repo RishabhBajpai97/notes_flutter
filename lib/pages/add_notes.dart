@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:notes/models/notes_model.dart';
-import '../db/db.dart';
 import '../store/notes.dart';
 
 final notes = Notes.getInstance();
@@ -82,9 +81,7 @@ class _AddNotesState extends State<AddNotes> {
                         content: _textbodyController.text,
                         createdTime: DateTime.now(),
                       );
-                      DatabaseProvider.db
-                          .insert(note)
-                          .then((storedNote) => notes.addNote(storedNote));
+                      notes.addNote(note);
 
                       FocusScopeNode currentFocus = FocusScope.of(context);
                       if (!currentFocus.hasPrimaryFocus &&

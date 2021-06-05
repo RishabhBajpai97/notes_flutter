@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:notes/db/db.dart';
 import 'package:notes/models/notes_model.dart';
 import '../store/notes.dart';
 
@@ -82,12 +81,13 @@ class _EditNotesState extends State<EditNotes> {
                     ),
                     onPressed: () {
                       final updatedNote = NotesModel(
-                          id: id,
-                          content: _textbodyController.text,
-                          title: _titleinputController.text,
-                          createdTime: item.createdTime);
+                        id: id,
+                        content: _textbodyController.text,
+                        title: _titleinputController.text,
+                        createdTime: item.createdTime,
+                      );
+                      
                       notes.updateNote(updatedNote);
-                      DatabaseProvider.db.update(updatedNote);
 
                       FocusScopeNode currentFocus = FocusScope.of(context);
                       if (!currentFocus.hasPrimaryFocus &&
